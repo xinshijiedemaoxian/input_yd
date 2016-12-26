@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
     <title>移动端软键盘遮盖问题</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <style>
         *{margin:0;padding:0;}
         body,html{height:100%;width:100%;}
         #box{ width: 100%;height:200px;background: #00d1d8;}
         li{padding:10px;padding-bottom:0;}
-        input{height:50px;line-height: 50px;font-size:18px;padding-left:10px;width:calc(100% - 10px);background: #eee;border:1px solid #999;}
+        span{display: inline-block;width:18px;}
+        input{height:50px;line-height: 50px;font-size:18px;width:calc(100% - 20px);background: #eee;border:1px solid #999;}
     </style>
     <script src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">
@@ -63,11 +65,11 @@
 <mian>
     <div id="box"></div>
     <ul>
-        <li><input type="text" name="name" placeholder="请输入姓名"></li>
-        <li><input type="password" name="pwd" placeholder="请输入密码"></li>
-        <li><input type="email" name="email" placeholder="请输入邮箱"></li>
-        <li><input type="tel" name="tel" placeholder="请输入电话"></li>
-        <li><input type="number" name="number" placeholder="身份证号"></li>
+        <li><span class="fa fa-glass"></span><input type="text" name="name" placeholder="请输入姓名"></li>
+        <li><span class="fa fa-heart"></span><input type="password" name="pwd" placeholder="请输入密码"></li>
+        <li><span class="fa fa-search"></span><input type="email" name="email" placeholder="请输入邮箱"></li>
+        <li><span class="fa fa-cog"></span><input type="tel" name="tel" placeholder="请输入电话"></li>
+        <li><span class="fa fa-repeat"></span><input type="number" name="number" placeholder="身份证号"></li>
     </ul>
 </mian>
 
