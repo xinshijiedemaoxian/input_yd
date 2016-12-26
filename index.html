@@ -8,12 +8,59 @@
         *{margin:0;padding:0;}
         body,html{height:100%;width:100%;}
         #box{ width: 100%;height:400px;background: #00d1d8;}
-        li{padding:20px;}
+        li{padding:10px;}
         input{height:50px;line-height: 50px;font-size:18px;padding-left:10px;width:calc(100% - 10px);background: #eee;border:1px solid #999;}
     </style>
     <script src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        // 防止内容区域滚到底后引起页面整体的滚动
+        var content = document.querySelector('main');
+        var startY;
+        content.addEventListener('touchstart', function (e) {
+//起始位置
+            startY = e.touches[0].clientY;
+        });
+        content.addEventListener('touchmove', function (e) {
+// 高位表示向上滚动
+// 底位表示向下滚动
+// 1容许 0禁止
+            var status = '11';
+            var ele = this;
+//当前位置
+            var currentY = e.touches[0].clientY;
+//如果垂直偏移量scrollTop为0，说明要么内容小于容器没有滚动条，要么大于容器但滚动条在顶部
+            if (ele.scrollTop === 0) {
+// 如果内容小于容器则同时禁止上下滚动，若大于则可以向下滚动
+                status = ele.offsetHeight >= ele.scrollHeight ? '00' : '01';
+            } else if (ele.scrollTop + ele.offsetHeight >= ele.scrollHeight) {
+                /*
+                 1.垂直偏移量scrollTop+整个元素的尺寸offsetHeight(包括边框)=整个内容区域scrollHeight
+                 证明已经滚到底部了只能向上滚动；
+                 2.其中offsetHeight(包括边框)是否要换成clientHeight(不包括边框)？
+                 */
+                status = '10';
+            }
+//若status==11则上面三种情况都不是，这种情况是有滚动条且滚动条不在顶部也不在底部
+            if (status != '11') {
+// 判断当前的滚动方向
+                var direction = currentY - startY > 0 ? '10' : '01';
+                /*
+                 1.操作方向和当前允许状态求与运算，运算结果为0，就说明不允许该方向滚动，则禁止默认事件，阻止滚动
+                 2.status为00，说明没有滚动条，此时无论direction是上还是下，都要阻止滚动
+                 3.status为01，说明有滚动条，可以向下滚动，此时direction为01则符合向下滚动
+                 4.status为10，说明有滚动条，可以向上滚动，此时direction为10则符合向上滚动
+                 5.综上a.没有滚动条 b.滚动条在顶部但还向上滚动 c.滚动条在底部但还向下滚动 都要阻止滚动
+                 */
+                if (!(parseInt(status, 2) & parseInt(direction, 2))) {
+                    stopEvent(e);
+                }
+            }
+        });
+    </script>
+
 </head>
 <body>
+<mian>
     <div id="box"></div>
     <ul>
         <li><input type="text" name="name" placeholder="请输入姓名"></li>
@@ -21,5 +68,7 @@
         <li><input type="email" name="email" placeholder="请输入邮箱"></li>
         <li><input type="tel" name="tel" placeholder="请输入电话"></li>
     </ul>
+</mian>
+
 </body>
 </html>
