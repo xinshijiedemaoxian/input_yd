@@ -16,7 +16,7 @@
     <script src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">
         // 防止内容区域滚到底后引起页面整体的滚动
-        var content = document.querySelector('main');
+        var content = $('main');
         var startY;
         content.addEventListener('touchstart', function (e) {
 //起始位置
@@ -64,13 +64,16 @@
 <body>
 <mian>
     <div id="box"></div>
+    <form action="">
+
     <ul>
-        <li><span class="fa fa-glass"></span><input type="text" name="name" placeholder="请输入姓名"></li>
+        <li><span class="fa fa-glass"></span><input type="text" name="name" placeholder="输入姓名"></li>
         <li><span class="fa fa-heart"></span><input type="password" name="pwd" placeholder="请输入密码"></li>
         <li><span class="fa fa-search"></span><input type="email" name="email" placeholder="请输入邮箱"></li>
         <li><span class="fa fa-cog"></span><input type="tel" name="tel" placeholder="请输入电话"></li>
         <li><span class="fa fa-repeat"></span><input type="number" name="number" placeholder="身份证号"></li>
     </ul>
+    </form>
 </mian>
 
 </body>
