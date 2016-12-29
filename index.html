@@ -5,15 +5,21 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
     <title>移动端软键盘遮盖问题</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/public.css" type="text/css">
+    <link href="css/fill.css" rel="stylesheet" type="text/css" />
     <style>
-        *{margin:0;padding:0;}
-        body,html{height:100%;width:100%;}
-        #box{ width: 100%;height:200px;background: #00d1d8;}
-        li{padding:10px;padding-bottom:0;}
-        span{display: inline-block;width:18px;}
-        input{height:50px;line-height: 50px;font-size:18px;width:calc(100% - 20px);background: #eee;border:1px solid #999;}
+        @media screen and (orientation: landscape) {
+            /*横屏 css*/
+            #desc{color: #4673f4!important;}
+            #group {  width: 250px;  }
+            #group p{display: none;}
+            #group img {width: 250px }
+            #group .result_tips {position: fixed;top: 5px;left: 10px;}
+        }
     </style>
-    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/qrcode.js"></script>
     <script type="text/javascript">
         // 防止内容区域滚到底后引起页面整体的滚动
         var content = $('main');
@@ -62,19 +68,62 @@
 
 </head>
 <body>
-<mian>
-    <div id="box"></div>
-    <form action="">
-
-    <ul>
-        <li><span class="fa fa-glass"></span><input type="text" name="name" placeholder="输入姓名"></li>
-        <li><span class="fa fa-heart"></span><input type="password" name="pwd" placeholder="请输入密码"></li>
-        <li><span class="fa fa-search"></span><input type="email" name="email" placeholder="请输入邮箱"></li>
-        <li><span class="fa fa-cog"></span><input type="tel" name="tel" placeholder="请输入电话"></li>
-        <li><span class="fa fa-repeat"></span><input type="number" name="number" placeholder="身份证号"></li>
-    </ul>
-    </form>
+    <mian>
+        <div style="width:100%;height:100%;overflow: auto;">
+            <div class="logo">开票信息</div>
+            <form action="" method="post" id="qcodeForm" target="id_iframe">
+                <ul class="login-block">
+                    <li class="lists">
+                        <ul>
+                            <li>
+                                <label class="style_label" style="background-position:0 center;"></label><input type="text" value="" placeholder="公司(必填)" id="companyname" class="txtValue" onfocus="copName()" onblur="copName()" />
+                                <p class="cnHint"></p>
+                            </li>
+                            <li>
+                                <label class="style_label" style="background-position: -47px center;"></label><input type="text" value="" placeholder="纳税人识别号(专用发票需填写)" id="identifier" class="txtValue"/>
+                            </li>
+                            <li>
+                                <label class="style_label" style="background-position: -94px center;"></label><textarea style="vertical-align:top;resize: none;" value="" placeholder="地址及电话(专用发票需填写)" rows="3" id="address" class="txtValue"></textarea>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="lists">
+                        <ul>
+                            <li>
+                                <label class="style_label" style="background-position: -141px center;"></label><textarea style="vertical-align:top;resize: none;" value="" placeholder="开户行及账号(专用发票需填写)" rows="3" id="bank" class="txtValue"></textarea>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="lists">
+                        <ul>
+                            <li>
+                                <label class="style_label" style="background-position: -188px center;"></label><input type="text" id="desc" placeholder="开票信息(二维码标识)" class="txtValue"  maxlength='16'  style="color:#752107;"/>
+                                <p class="descHint"></p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!--<div id="btn"><button class="button buttonG" type="button" >生成二维码</button></div>-->
+                <div id="btn"><input class="button buttonG" type="submit" value="生成二维码" id="qcode_sub" name="qcode_sub"></div>
+            </form>
+            <iframe id="id_iframe" name="id_iframe" style="display: none;" ></iframe>
+            <div id="result_content">
+                <input id="text" type="text" value="http://hxjl.com.cn" hidden style="width:80%" /><br />
+                <div id="group">
+                    <img src="" id="myimage" />
+                    <canvas id="main" class="hide" width="276" height="310" style="border:1px solid #d3d3d3;"></canvas>
+                    <div id="qrcode" class="hide"></div>
+                    <div class="resultbtn">
+                        <p style="margin-top:8px;color:#fff;font-size:14px;">小提示：<span style="color:#04be02;">长按图片</span>选择保存至手机相册</p>
+                        <div class="result_tips">
+                            <img src="img/close_03.png" id="close" onclick="closeResult()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </mian>
+    <script type="text/javascript" src="js/style.js" ></script>
 
 </body>
 </html>
