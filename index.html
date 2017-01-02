@@ -6,7 +6,7 @@
     <title>移动端软键盘遮盖问题</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="css/public.css" type="text/css">
+    <link rel="stylesheet" href="css/public01.css" type="text/css">
     <link href="css/fill.css" rel="stylesheet" type="text/css" />
     <style>
         @media screen and (orientation: landscape) {
@@ -53,10 +53,10 @@
 // 判断当前的滚动方向
                 var direction = currentY - startY > 0 ? '10' : '01';
                 /*
-                 1.操作方向和当前允许状态求与运算，运算结果为0，就说明不允许该方向滚动，则禁止默认事件，阻止滚动
+                 1.操作方向和当前允许状态求与运算，运算结果为0，就说明不允动条，可以向下滚动，此时direction为01则符合向下滚动
+                 4.status为10，说明有滚许该方向滚动，则禁止默认事件，阻止滚动
                  2.status为00，说明没有滚动条，此时无论direction是上还是下，都要阻止滚动
-                 3.status为01，说明有滚动条，可以向下滚动，此时direction为01则符合向下滚动
-                 4.status为10，说明有滚动条，可以向上滚动，此时direction为10则符合向上滚动
+                 3.status为01，说明有滚动条，可以向上滚动，此时direction为10则符合向上滚动
                  5.综上a.没有滚动条 b.滚动条在顶部但还向上滚动 c.滚动条在底部但还向下滚动 都要阻止滚动
                  */
                 if (!(parseInt(status, 2) & parseInt(direction, 2))) {
@@ -74,6 +74,7 @@
 
             <form action="" method="post" id="qcodeForm" target="id_iframe">
                 <ul class="login-block">
+                    <li class="lists" style="height:200px;background-color: violet;"></li>
                     <li class="lists">
                         <ul>
                             <li>
